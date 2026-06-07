@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mineral Floor — Anusree Garg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: oklch(97% 0.012 75); --ink: oklch(16% 0.020 55); --ink-mid: oklch(40% 0.018 60); --ink-soft: oklch(60% 0.014 65);
+      --terracotta: oklch(56% 0.140 48); --teal: oklch(42% 0.090 205); --saffron: oklch(71% 0.195 75); --rule: oklch(86% 0.018 72);
+      --f-display: 'Syne', system-ui, sans-serif; --f-serif: 'Newsreader', Georgia, serif; --f-body: 'Barlow', system-ui, sans-serif;
+    }
+    html { font-size: 16px; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-weight: 400; -webkit-font-smoothing: antialiased; }
+    .top-bar { padding: 1.4rem 5vw; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); position: sticky; top: 0; background: color-mix(in oklch, var(--bg) 96%, transparent); backdrop-filter: blur(8px); z-index: 10; }
+    .back-link { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--terracotta); }
+    .draft-pill { font-family: var(--f-display); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; background: var(--saffron); color: white; padding: 0.25em 0.8em; }
+    .article-wrap { max-width: 700px; margin: 0 auto; padding: 4rem 5vw 8rem; }
+    .article-meta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .meta-venue { font-family: var(--f-display); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+    .meta-words { font-family: var(--f-display); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-soft); }
+    h1 { font-family: var(--f-serif); font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 600; line-height: 1.2; color: var(--ink); margin-bottom: 1.2rem; text-wrap: pretty; }
+    .article-voice { font-size: 0.8rem; font-weight: 300; color: var(--ink-soft); font-style: italic; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+    .article-body p { font-size: 1.05rem; font-weight: 300; line-height: 1.9; color: var(--ink-mid); margin-bottom: 1.6rem; text-wrap: pretty; }
+    .article-body p:first-child { font-size: 1.12rem; color: var(--ink); font-weight: 400; }
+    .article-footer { margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-author { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .footer-back { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+    .footer-back:hover { color: var(--terracotta); border-color: var(--terracotta); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="../index.html" class="back-link">← Anusree Garg</a>
+    <span class="draft-pill">Draft · Work in Progress</span>
+  </div>
+  <div class="article-wrap">
+    <div class="article-meta">
+      <span class="meta-venue">AI Safety</span>
+      <span class="meta-words">~750 words</span>
+    </div>
+    <h1>The Mineral Floor: Environmental Crime Governance Is a Missing Variable in Compute Forecasting</h1>
+    <p class="article-voice">Views evolving, feedback welcome.</p>
+    <div class="article-body">
+      <p>The EA community has developed sophisticated models for the compute inputs to frontier AI. Chip architectures, training run costs, datacenter energy requirements, export control thresholds. These models have gotten meaningfully better over the past few years, and the organizations doing this work deserve credit for it.</p>
+      <p>There is a variable that is largely absent from these models. Frontier AI compute scaling requires physical mineral inputs, and those inputs flow through supply chains with governance characteristics that are not adequately priced into most compute forecasting. This is not a peripheral concern. It is a structural constraint on the compute scaling trajectory that the field has not seriously examined.</p>
+      <p>The specific minerals are well-documented. Gallium and germanium, both on NATO's defence-critical list, are essential to compound semiconductors used in chip fabrication. Cobalt goes into the batteries and cooling systems that underpin datacenter infrastructure. Rare earth elements appear throughout the electronics supply chain. These are not easily substituted inputs. They are physical requirements for the hardware layer that makes everything else possible.</p>
+      <p>The governance picture for these minerals is substantially worse than the field seems to appreciate. Extraction and processing operations for several of these materials operate in jurisdictions with weak beneficial ownership transparency, documented AML and CFT gaps that FATF has flagged in successive mutual evaluations, and environmental crime patterns including illegal mining, fraudulent licensing, and proceeds laundering through opaque corporate structures. This is not contested. It is documented in FATF typologies, UN reports, and national risk assessments.</p>
+      <p>The question is what this means for compute forecasting. I want to make a specific, limited claim: environmental crime governance is a source of supply-side uncertainty that current compute models do not adequately account for. A serious enforcement action against an illegal mining operation, a beneficial ownership disclosure requirement that disrupts a processing facility's financing, a FATF mutual evaluation that results in enhanced due diligence requirements for a jurisdiction hosting critical mineral refining — any of these can introduce supply shocks that are not captured in models that treat the mineral supply chain as a reliable input.</p>
+      <p>This is not primarily an argument about intentional disruption. It is an argument about unmodeled variance. The compute scaling curves EA is working with assume a relatively stable physical supply chain. That assumption has not been tested against the actual governance fragility of the mineral layer those supply chains depend on.</p>
+      <p>There is also a more structural version of this argument. The extraction and processing economics for several of these materials are partly a function of externalized governance costs. Operations that do not comply with environmental crime standards, beneficial ownership requirements, or AML/CFT frameworks are effectively subsidized by that non-compliance. Robust enforcement, if it materialized, would change the cost structure of mineral production in ways that are not captured in current supply projections.</p>
+      <p>I want to be honest about what I do not know. I do not know the exact magnitude of this effect. I do not know which specific enforcement actions or governance improvements would have the most material impact on compute supply. I do not know whether the enforcement institutions that would need to act have the political will or operational capacity to do so. These are empirical questions that require people with both mineral supply chain expertise and AI compute forecasting expertise in the same room, and I am not aware of that conversation happening in a systematic way.</p>
+      <p>What I do know is that the gap exists. The field has people modeling chip yields and energy grids. It does not appear to have people systematically modeling mineral supply chain governance as a variable in compute availability. Given the stakes of the forecasts that depend on compute scaling assumptions, that gap seems worth filling.</p>
+      <p>The people best positioned to work on this sit at an unusual intersection: environmental crime governance, AML/CFT enforcement, mineral supply chain economics, and AI compute modeling. That intersection is not well-populated. It probably should be.</p>
+    </div>
+    <div class="article-footer">
+      <span class="footer-author">Anusree Garg &nbsp;·&nbsp; June 2026</span>
+      <a href="../index.html" class="footer-back">← Back to site</a>
+    </div>
+  </div>
+</body>
+</html>

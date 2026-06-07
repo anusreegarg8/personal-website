@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Needs to Go Right in Geneva — Anusree Garg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: oklch(97% 0.012 75); --ink: oklch(16% 0.020 55); --ink-mid: oklch(40% 0.018 60); --ink-soft: oklch(60% 0.014 65);
+      --terracotta: oklch(56% 0.140 48); --teal: oklch(42% 0.090 205); --saffron: oklch(71% 0.195 75); --rule: oklch(86% 0.018 72);
+      --f-display: 'Syne', system-ui, sans-serif; --f-serif: 'Newsreader', Georgia, serif; --f-body: 'Barlow', system-ui, sans-serif;
+    }
+    html { font-size: 16px; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-weight: 400; -webkit-font-smoothing: antialiased; }
+
+    .top-bar { padding: 1.4rem 5vw; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); position: sticky; top: 0; background: color-mix(in oklch, var(--bg) 96%, transparent); backdrop-filter: blur(8px); z-index: 10; }
+    .back-link { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--terracotta); }
+    .draft-pill { font-family: var(--f-display); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; background: var(--saffron); color: white; padding: 0.25em 0.8em; }
+
+    .article-wrap { max-width: 700px; margin: 0 auto; padding: 4rem 5vw 8rem; }
+    .article-meta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .meta-venue { font-family: var(--f-display); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+    .meta-words { font-family: var(--f-display); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-soft); }
+
+    h1 { font-family: var(--f-serif); font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 600; line-height: 1.2; color: var(--ink); margin-bottom: 0.6rem; text-wrap: pretty; }
+    .article-subtitle { font-family: var(--f-serif); font-size: 1.05rem; font-weight: 400; font-style: italic; color: var(--ink-mid); line-height: 1.5; margin-bottom: 1.8rem; text-wrap: pretty; }
+    .article-voice { font-size: 0.8rem; font-weight: 300; color: var(--ink-soft); font-style: italic; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+
+    .article-body p { font-size: 1.05rem; font-weight: 300; line-height: 1.9; color: var(--ink-mid); margin-bottom: 1.6rem; text-wrap: pretty; }
+    .article-body p:first-child { font-size: 1.12rem; color: var(--ink); font-weight: 400; }
+    .article-body h2 { font-family: var(--f-serif); font-size: 1.2rem; font-weight: 600; color: var(--ink); margin: 2.8rem 0 1rem; }
+    .article-body h3 { font-family: var(--f-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin: 2rem 0 0.7rem; }
+    .article-source { font-size: 0.78rem; font-weight: 300; color: var(--ink-soft); font-style: italic; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+
+    .article-footer { margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-author { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .footer-back { font-family: var(--f-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+    .footer-back:hover { color: var(--terracotta); border-color: var(--terracotta); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="../index.html" class="back-link">← Anusree Garg</a>
+    <span class="draft-pill">Draft · Work in Progress</span>
+  </div>
+
+  <div class="article-wrap">
+    <div class="article-meta">
+      <span class="meta-venue">AI SAFETY</span>
+      <span class="meta-words">~2,000 words</span>
+    </div>
+
+    <h1>What Needs to Go Right in Geneva this July</h1>
+    <p class="article-subtitle">The July 2026 Global Dialogue on AI Governance is the first real test of whether the UN's new framework can operate at the speed the moment demands.</p>
+    <p class="article-voice">Views evolving, feedback welcome.</p>
+
+    <figure style="margin: 0 0 2.5rem; border: 1px solid var(--rule); overflow: hidden;">
+      <img src="../uploads/Global_AI_Governance_Framework_Overview.png" alt="UN AI Governance: Building a Global Framework for the Future — infographic showing the two pillars (Scientific Panel and Global Dialogue) and implementation timeline 2025–2027" style="width: 100%; display: block;">
+      <figcaption style="font-family: var(--f-display); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; color: var(--ink-soft); padding: 0.7rem 1rem; background: var(--bg-linen, oklch(93.5% 0.018 75));">  Based on information from the Simon Institute for Longterm Governance</figcaption>
+    </figure>
+
+    <div class="article-body">
+      <p>In August 2025, the UN General Assembly formally adopted the institutional designs for two new bodies: the Independent International Scientific Panel on AI and the Global Dialogue on AI Governance. Together, these constitute the most significant attempt the multilateral system has yet made to get ahead of artificial intelligence rather than simply respond to it. The question now is whether the architecture can actually function. The July 2026 Global Dialogue in Geneva, where the Panel will present its first Annual Assessment Report, is the moment when that question starts to get answered.</p>
+
+      <p>The framework was designed around a core insight: that the governance of AI cannot operate on the timescales multilateral institutions typically prefer. The IPCC, the closest analogue in terms of institutional form, runs on five to eight year assessment cycles. That rhythm is completely incompatible with a technology where compute capacity quadruples annually and new capabilities in domains like biosecurity can emerge within months. The Panel is therefore mandated to produce annual reports, and the first of those reports lands in Geneva. This is what the architects of the framework called "speed by design" and it is either the most important innovation built into the structure or the feature most likely to become a point of failure, depending on whether the conditions for success are actually in place.</p>
+
+      <h2>What Has Been Built</h2>
+
+      <p>The two-pillar structure reflects a deliberate balancing act. The Scientific Panel is meant to provide the analytical foundation: forty experts appointed by the UN Secretary-General, serving in their personal capacity, producing independent assessments of AI opportunities, risks, and impacts. The Global Dialogue is the companion piece — an inclusive multi-stakeholder platform where governments, the private sector, and civil society work through the implications of those assessments across three clusters of issues: safe and trustworthy AI including open-source models; capacity gaps and socioeconomic implications; and interoperability, human rights, and human oversight.</p>
+
+      <p>The Panel's mandate contains a phrase that is doing an enormous amount of work: it is to be "policy-relevant but not policy-prescriptive." This is the load-bearing tension of the entire enterprise. A scientific body that answers governments' questions without telling them what to do, operating inside an institution not known for its speed or its tolerance of inconvenient findings, while covering a technology that the world's most powerful states regard as a strategic competition rather than a shared problem. Whether the Panel can hold that position under real conditions is something Geneva will begin to reveal.</p>
+
+      <p>There are genuine design successes embedded in the structure. Experts serve in their personal capacity rather than as national representatives, which preserves a degree of independence that other intergovernmental bodies have struggled to maintain. The Advisory Committee, composed of political appointees, was explicitly excluded from the report-drafting process — a decision that reflects hard-won lessons from how scientific findings have been softened in other UN contexts. And the mandate allows for ad hoc working groups and urgent thematic briefs in response to rapid technological developments, which means the Panel does not have to wait for its annual cycle if something consequential happens in the interim.</p>
+
+      <h2>The Tensions Embedded in the Design</h2>
+
+      <p>The framework arrived with compromises baked in, and those compromises carry real consequences for what happens next.</p>
+
+      <h3>Geographic Balance v. Scientific Merit</h3>
+      <p>The Panel's forty seats are constrained by nationality — a concession to the G77's insistence on representativeness that was necessary for political legitimacy but not without costs. The risk is that geographic balance functions in practice as a quota system, meaning the world's most technically capable researchers may not be in the room. There is a broader pattern worth naming here, which researchers have called "everything-bagel liberalism": the tendency to load governance instruments with so many orthogonal criteria — representativeness, gender balance, sectoral diversity — that the core function slows down and loses its edge precisely when speed is the point. For a body whose primary value proposition is analytical agility, this is not a theoretical concern.</p>
+
+      <h3>Technological Sovereignty v. Safety</h3>
+      <p>The second tension runs through the open-source question and is arguably the most politically charged issue on the Dialogue's agenda. Governments across the Global South increasingly view open-weight AI models as a precondition for technological sovereignty: the ability to fine-tune systems for local languages and cultural contexts, to avoid dependence on closed platforms built in San Francisco or Beijing, and to participate in AI development rather than simply consume its products. That is a legitimate and important claim. But open-weight releases cannot be recalled. Research suggests that the cost of fine-tuning away a model's safety behaviors is around twenty cents. There are reportedly more than seven thousand models on a single major repository with "uncensored" or "abliterated" in their names, indicating they have been specifically modified to remove refusal behaviors. The governance framework has to hold both of these truths at once, and there is no obvious resolution that satisfies both the sovereignty argument and the security one.</p>
+
+      <h3>Scientific Value v. Administrative Costs</h3>
+      <p>The third tension is institutional and largely invisible to outside observers, but it may be the most immediately consequential. The Panel is expected to operate on a meaningful scientific budget while the UN system has just absorbed a twenty percent staffing cut. Running a forty-member intergovernmental assessment body on "existing resources" is not a plan; it is a constraint being described as a plan. The IPCC model costs approximately five to ten million Swiss francs annually, and that is roughly the floor for an operation capable of producing rigorous, independent work. Without stable, dedicated funding, the Panel will face a problem researchers have named the "Szilard point": the administrative cost of UN accountability exceeds the scientific value being produced. With the news of an influx of funding coming into AI safety this year, this tension may be a tractable problem to solve.</p>
+
+      <h2>What the Global South Actually Needs from This Framework</h2>
+
+      <p>One of the more underappreciated distinctions in the governance literature concerns the difference between misalignment risks and misuse risks. Misalignment risks — meaning the possibility that AI systems develop goals or behaviors that diverge from human intentions — are context-independent. They affect everyone if they materialize. Misuse risks are different: they are deeply shaped by local context, language, regulatory environment, and institutional capacity. The risks posed to mobile banking users in Kenya by AI-enabled social engineering are not the same as the risks posed to users of large language models in Western European regulatory environments, and an assessment process dominated by Western AI Safety Institutes will systematically miss the former.</p>
+
+      <p>This has practical implications for what the Global Dialogue needs to produce. "Capacity building" as a category tends to get treated as a single policy lever, something donor governments fund and recipient countries receive. The more useful framing is twinning: pairing institutions with frontier AI safety evaluation capacity alongside their counterparts in the Global South in ways that actually transfer knowledge and produce locally grounded assessments. Whether the Dialogue in July takes that framing seriously, or settles for the more comfortable language of general capacity support, will say a great deal about whether the inclusive architecture is doing real work or decorative work.</p>
+
+      <h2>The Longer Horizon</h2>
+
+      <p>Underneath the immediate operational questions sits a more foundational one about who the benefits of advanced AI ultimately belong to. The governance community has begun to reach for analogies from international law — the Outer Space Treaty of 1967 and UNCLOS — frameworks that treated certain resources as the "common heritage of mankind" and established institutions to ensure benefit-sharing rather than pure extraction. Whether something similar is possible for AI, in a geopolitical environment defined by strategic competition between the United States and China rather than postwar multilateral optimism, is genuinely uncertain. But the question is worth naming, because the 2027 High-Level Review of the Global Digital Compact will ultimately have to grapple with it, and the July 2026 Dialogue is part of the process by which the international community decides whether to take it seriously.</p>
+
+      <h2>What Success in Geneva Actually Requires</h2>
+
+      <p>It is worth being specific about what a successful July meeting would actually look like, rather than leaving it as a general aspiration toward progress.</p>
+
+      <p>The Annual Assessment Report needs to be substantive, not diplomatic. If the Panel's first output reads like a consensus document that sanded down every contested finding in the interest of member state comfort, it will have established exactly the wrong precedent for everything that follows. The test of scientific independence is not whether the Panel exists; it is whether the Panel says things that powerful governments would have preferred it not say. That will become clear in Geneva.</p>
+
+      <p>The funding question needs to be publicly resolved, or at minimum publicly named. A scientific body whose operational independence depends on voluntary contributions and borrowed staff cannot credibly claim the kind of independence the design promises. The Geneva meeting is an opportunity to make that case with evidence rather than allowing the resource constraint to quietly hollow out the institution from within.</p>
+
+      <p>The Global South needs to have been genuinely heard, not merely represented. The difference between those two things is significant and often obscured by process. If the Dialogue produces a Chair's Summary that papers over real disagreements about capacity gaps and context-dependent risks, it will have produced the appearance of inclusion without the substance. The test is whether the output reflects analysis that could only have come from a genuinely diverse group of participants, or whether it reflects the usual distribution of analytical power dressed in representative language.</p>
+
+      <p>The open-source question needs a framework, not a verdict. No one is going to resolve the sovereignty-versus-safety tension in Geneva in July 2026, and attempting to do so would probably produce a worse outcome than acknowledging the tension honestly. What the Dialogue can and should produce is a shared analytical vocabulary for thinking about staged release, some preliminary criteria for when the benefits of openness outweigh the security costs, and a commitment to treat this as a problem the whole framework owns rather than a proxy battle between the states with the most to gain from each position.</p>
+
+      <p>Finally, the distinction between frontier AI and general-purpose AI needs to be operationalized, not just invoked. The governance framework's credibility depends on its ability to focus attention on the small cohort of high-consequence foundation models that pose systemic risk, rather than diffusing that attention across the entire landscape of AI applications. If the first Annual Assessment Report conflates these, or if the Dialogue's thematic clusters allow the frontier question to be absorbed into a broader digital development conversation, the framework will have missed the most important thing it was built to do.</p>
+
+      <p>The UN AI governance design reflects genuine learning from previous governance efforts — real attention to the failure modes of scientific independence, and a serious attempt to move faster than multilateral institutions typically do. Whether it can perform under actual operating conditions, with constrained resources, genuine geopolitical tension, and a technology that will not wait for institutional processes to catch up, is what Geneva will begin to answer. The window between now and the 2027 High-Level Review of the Global Digital Compact is the most consequential period for establishing whether this framework is real — and July is where that process starts.</p>
+
+      <p class="article-source">* Information based on recent reports from the Simon Institute for Longterm Governance.</p>
+    </div>
+
+    <div class="article-footer">
+      <span class="footer-author">Anusree Garg &nbsp;·&nbsp; June 2026</span>
+      <a href="../index.html" class="footer-back">← Back to site</a>
+    </div>
+  </div>
+</body>
+</html>
