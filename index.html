@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anusree Garg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          oklch(97%   0.012  75);
+      --bg-linen:    oklch(93.5% 0.018  75);
+      --bg-deep:     oklch(90%   0.022  70);
+      --ink:         oklch(16%   0.020  55);
+      --ink-mid:     oklch(40%   0.018  60);
+      --ink-soft:    oklch(60%   0.014  65);
+      --terracotta:  oklch(56%   0.140  48);
+      --teal:        oklch(42%   0.090 205);
+      --saffron:     oklch(71%   0.195  75);
+      --rule:        oklch(86%   0.018  72);
+      --f-display:   'Syne', system-ui, sans-serif;
+      --f-serif:     'Newsreader', Georgia, serif;
+      --f-body:      'Barlow', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── GATE ─────────────────────────────────────────── */
+    #gate {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1),
+                  opacity   0.55s ease;
+    }
+    #gate.unlocked {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gate-monogram {
+      font-family: var(--f-display);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 10vw, 5.5rem);
+      letter-spacing: -0.03em;
+      color: var(--saffron);
+      line-height: 1;
+    }
+    .gate-rule {
+      width: 36px;
+      height: 1px;
+      background: var(--rule);
+      margin: 1.4rem auto 1.2rem;
+    }
+    .gate-sub {
+      font-family: var(--f-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 3rem;
+    }
+    .gate-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: min(300px, 88vw);
+    }
+    .gate-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 0.6rem 0;
+      font-family: var(--f-body);
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .gate-input::placeholder { color: var(--ink-soft); letter-spacing: 0.08em; }
+    .gate-input:focus { border-color: var(--terracotta); }
+    .gate-btn {
+      margin-top: 0.5rem;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      padding: 0.8rem 2.8rem;
+      font-family: var(--f-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .gate-btn:hover { background: var(--terracotta); }
+    .gate-error {
+      font-size: 0.78rem;
+      color: var(--terracotta);
+      min-height: 1.2em;
+      font-family: var(--f-body);
+    }
+
+    /* ─── NAV ───────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: color-mix(in oklch, var(--bg) 96%, transparent);
+      border-color: var(--rule);
+      backdrop-filter: blur(8px);
+    }
+    .nav-name {
+      font-family: 'Montserrat', var(--f-display);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--f-display);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* Hero watermark */
+    .hero-watermark {
+      position: absolute;
+      inset: -20px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.07;
+    }
+    .hero-left > *:not(.hero-watermark) {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      align-items: center;
+      padding: 0 5vw;
+      gap: 2vw;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-left { padding: 9rem 0 5rem; max-width: 580px; position: relative; overflow: hidden; }
+
+    .hero-label {
+      font-family: var(--f-display);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+    }
+    .hero-pitch {
+      font-family: var(--f-serif);
+      font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.22;
+      color: var(--teal);
+      margin-bottom: 2.2rem;
+      text-wrap: pretty;
+    }
+    .hero-pitch strong {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--saffron);
+    }
+    .hero-rule {
+      width: 44px;
+      height: 2px;
+      background: var(--terracotta);
+      margin-bottom: 1.8rem;
+    }
+    .hero-creds {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.9;
+      margin-bottom: 2.8rem;
+    }
+    .hero-creds {
+      list-style: none;
+      padding: 0;
+    }
+    .hero-creds li {
+      padding-left: 1.4em;
+      position: relative;
+      margin-bottom: 0.15rem;
+    }
+    .hero-creds li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--terracotta);
+      font-weight: 300;
+    }
+    .hero-links {
+      display: flex;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .hero-link {
+      font-family: var(--f-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hero-link:hover { color: var(--teal); border-color: var(--teal); }
+    .hero-link.proj { color: var(--terracotta); border-color: var(--terracotta); }
+    .hero-link.proj:hover { color: var(--saffron); border-color: var(--saffron); }
+    .pw-hint {
+      font-size: 0.58rem;
+      opacity: 0.65;
+      font-family: var(--f-body);
+      letter-spacing: 0.04em;
+      text-transform: none;
+      font-weight: 300;
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9rem 0 5rem;
+    }
+    .globe-wrap { position: relative; width: min(380px, 90%); aspect-ratio: 1; }
+    .globe-svg { width: 100%; height: 100%; opacity: 0.18; }
+
+    /* ─── SECTION COMMONS ──────────────────────────────── */
+    .section-label {
+      font-family: var(--f-display);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .section-title {
+      font-family: var(--f-serif);
+      font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    /* ─── THINKING ─────────────────────────────────────── */
+    #thinking {
+      background: var(--bg-linen);
+      padding: 6rem 5vw;
+    }
+    .thinking-header {
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+    }
+    .thinking-note {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--ink-soft);
+      margin-top: 0.6rem;
+    }
+    .articles-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .article-card {
+      background: var(--bg);
+      padding: 2.2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border-top: 2px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .article-card:hover {
+      border-top-color: var(--terracotta);
+      background: oklch(99% 0.007 75);
+    }
+    .article-num {
+      font-family: var(--f-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--ink-soft);
+    }
+    .article-title {
+      font-family: var(--f-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.38;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+    .article-venue {
+      font-family: var(--f-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .article-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      flex: 1;
+      text-wrap: pretty;
+    }
+    .article-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--f-display);
+      font-size: 0.57rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--saffron);
+      color: white;
+      padding: 0.22em 0.65em;
+    }
+
+    /* ─── ABOUT ─────────────────────────────────────────── */
+    #about {
+      padding: 6rem 5vw;
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.65fr;
+      gap: 6rem;
+      margin-top: 3.5rem;
+    }
+    .about-bio {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ink-mid);
+      text-wrap: pretty;
+      margin-bottom: 1.8rem;
+    }
+    .sub-label {
+      font-family: var(--f-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1rem;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 2.8rem;
+    }
+    .skill-tag {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--ink);
+      padding: 0.28rem 0.7rem;
+      border: 1px solid var(--rule);
+    }
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--f-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--ink);
+      padding: 0.9rem 1.8rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .resume-btn:hover { background: var(--terracotta); }
+
+    /* Timeline */
+    .exp-timeline { display: flex; flex-direction: column; }
+    .exp-entry {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 0 1.3rem;
+      padding-bottom: 2.4rem;
+      position: relative;
+    }
+    .exp-entry::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 10px;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+    .exp-entry:last-child::before { display: none; }
+    .exp-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--rule);
+      margin-top: 3px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.2s;
+    }
+    .exp-dot.current { border-color: var(--terracotta); background: var(--terracotta); }
+    .exp-org {
+      font-family: var(--f-display);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.2rem;
+    }
+    .exp-title {
+      font-family: var(--f-serif);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+      line-height: 1.3;
+    }
+    .exp-dates {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--ink-soft);
+      margin-bottom: 0.55rem;
+    }
+    .exp-desc {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      text-wrap: pretty;
+    }
+
+
+    .exp-pubs {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .pubs-label {
+      font-family: var(--f-display);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.25rem;
+    }
+    .pub-link {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--teal);
+      text-decoration: none;
+      line-height: 1.55;
+      transition: color 0.2s;
+    }
+    .pub-link:hover { color: var(--terracotta); }
+
+    .divider { height: 1px; background: var(--rule); margin: 2.5rem 0; }
+
+    .edu-entry { margin-bottom: 1.3rem; }
+    .edu-school {
+      font-family: var(--f-serif);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .edu-degree {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+    .edu-year { font-size: 0.72rem; color: var(--ink-soft); }
+
+    .award-line {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.9;
+      padding-left: 1em;
+      text-indent: -1em;
+    }
+    .award-line::before { content: "· "; color: var(--terracotta); }
+
+    /* ─── CONTACT ──────────────────────────────────────── */
+    #contact {
+      background: var(--bg-linen);
+      padding: 6rem 5vw;
+    }
+    .contact-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .contact-note {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.85;
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+    }
+    .contact-note a { color: var(--terracotta); text-decoration: none; }
+    .contact-note a:hover { color: var(--teal); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.8rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-family: var(--f-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .form-input, .form-textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 0.55rem 0;
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--terracotta); }
+    .form-submit {
+      align-self: flex-start;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      padding: 0.9rem 2rem;
+      font-family: var(--f-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--teal); }
+    .form-success {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--teal);
+      font-weight: 400;
+      padding: 0.6rem 0;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 5vw;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-name {
+      font-family: var(--f-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-family: var(--f-display);
+      letter-spacing: 0.06em;
+    }
+    .footer-links a:hover { color: var(--terracotta); }
+
+    /* ─── FADE-IN ─────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 960px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .articles-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+<link id="gfont-Poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Open-Sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Oswald" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+
+  <!-- ─ PASSWORD GATE ─────────────────────────────────── -->
+  <div id="gate">
+    <form class="gate-form" onsubmit="checkPassword(event)">
+      <input type="password" class="gate-input" id="gateInput" placeholder="Password" autocomplete="off">
+      <div class="gate-error" id="gateError"></div>
+      <button type="submit" class="gate-btn">Enter</button>
+    </form>
+  </div>
+
+  <!-- ─ NAV ───────────────────────────────────────────── -->
+  <nav id="nav">
+    <a href="#hero" class="nav-name" >Anusree <span style="color:var(--terracotta)">Garg</span></a>
+    <ul class="nav-links">
+      <li><a href="#thinking">Writing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.linkedin.com/in/anusreegarg/?skipRedirect=true" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+      <li><a href="https://github.com/anusreegarg8" target="_blank" rel="noopener">GitHub ↗</a></li>
+      <li><a href="uploads/Garg_Resume_5.27.docx" download style="color:var(--terracotta)">Resume ↓</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─ HERO ──────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-left">
+      <svg class="hero-watermark" viewBox="0 0 620 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M55,195 C82,82 218,26 368,48 C482,65 578,140 574,240 C570,338 492,420 368,448 C244,475 110,442 58,356 C6,270 28,307 55,195 Z" stroke="var(--terracotta)" stroke-width="1.5"/>
+        <path d="M90,205 C114,106 228,55 362,76 C466,96 554,163 552,254 C550,345 476,412 360,434 C244,456 136,428 90,348 C44,268 66,300 90,205 Z" stroke="var(--terracotta)" stroke-width="1.2"/>
+        <path d="M126,215 C147,128 238,82 356,102 C450,120 534,184 530,268 C526,352 456,406 352,420 C248,434 152,408 118,332 C84,256 105,298 126,215 Z" stroke="var(--terracotta)" stroke-width="1"/>
+        <path d="M160,226 C178,150 248,108 350,127 C434,144 512,204 508,282 C504,360 438,400 340,408 C242,416 162,390 134,316 C106,242 142,295 160,226 Z" stroke="var(--terracotta)" stroke-width="0.85"/>
+        <path d="M194,237 C208,172 258,134 344,151 C420,167 492,222 488,294 C484,366 422,394 330,396 C238,398 174,374 152,304 C130,234 178,292 194,237 Z" stroke="var(--terracotta)" stroke-width="0.7"/>
+        <path d="M228,248 C238,196 270,162 336,177 C400,192 464,242 460,306 C456,370 398,386 316,384 C234,382 192,360 172,294 C152,228 218,288 228,248 Z" stroke="var(--terracotta)" stroke-width="0.55"/>
+      </svg>
+      <p class="hero-label">FOREIGN POLICY  ·  INTERNATIONAL SECURITY  ·  AI GOVERNANCE  ·  GRANTMAKING</p>
+      <h1 class="hero-pitch" style="font-family: Cabin; font-size: 26px">Pivoting to AI Safety Policy. Mapping the intersection of global regulation, national security, and supply chain ecology to build proactive AI governance. </h1>
+      <div class="hero-rule"></div>
+      <ul class="hero-creds">
+        <li>Former Federal grantmaker — $42M deployed across 30+ LMICs</li>
+        <li>Negotiated the first UN resolution establishing an Expert Group on Environmental Crimes</li>
+        <li>U.S. State Department Multilateral Advocacy on Transnational Security</li>
+        <li>JD, international law &nbsp;·&nbsp; Two-time Meritorious Honor Award  (2024, 2025)</li>
+        <li>Now: Effective Philanthropy &amp; AI governance</li>
+      </ul>
+      <div class="hero-links">
+        <a href="https://www.linkedin.com/in/anusreegarg/?skipRedirect=true" target="_blank" rel="noopener" class="hero-link">LinkedIn</a>
+        <a href="https://github.com/anusreegarg8" target="_blank" rel="noopener" class="hero-link">GitHub</a>
+      </div>
+      <div style="margin-top:1.4rem">
+        <div style="font-family:var(--f-display);font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.8rem">Projects in Development</div>
+        <div class="hero-links">
+          <a href="https://thegreenhire.com/" target="_blank" rel="noopener" class="hero-link proj">THE GREEN HIRE ↗</a>
+          <a href="https://anusreegarg8.github.io/AI-policy-tracker/" target="_blank" rel="noopener" class="hero-link proj">AI POLICY TRACKER ↗ <span class="pw-hint">(pw: policy)</span></a>
+          <a href="https://anusreegarg8.github.io/us-ai-policy-tracker/" target="_blank" rel="noopener" class="hero-link proj">US AI POLICY TRACKER ↗</a>
+          <a href="https://anusreegarg8.github.io/pop-culture-for-AI/" target="_blank" rel="noopener" class="hero-link proj">POP CULTURE AI EXAMPLES ↗</a>
+          <a href="https://anusreegarg8.github.io/UN-resolutions/" target="_blank" rel="noopener" class="hero-link proj">UN RESOLUTIONS ↗</a>
+          <a href="https://anusreegarg8.github.io/AGI.ASI-risk_landscape/" target="_blank" rel="noopener" class="hero-link proj">AGI/ASI RISK LANDSCAPE ↗</a>
+          <a href="https://docs.google.com/spreadsheets/d/1hF2rL0BpwPmbMgMOk0gpGrZTk8Dbr_ShOTCadGJKXuU/edit?gid=523929218#gid=523929218" target="_blank" rel="noopener" class="hero-link proj">GRANT EVALUATION MATRIX ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="globe-wrap">
+        <svg class="globe-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- outer circle -->
+          <circle cx="200" cy="200" r="188" stroke="oklch(42% 0.09 205)" stroke-width="1.2"/>
+          <!-- latitude lines -->
+          <ellipse cx="200" cy="200" rx="188" ry="140" stroke="oklch(42% 0.09 205)" stroke-width="0.9"/>
+          <ellipse cx="200" cy="200" rx="188" ry="93" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <ellipse cx="200" cy="200" rx="188" ry="47" stroke="oklch(42% 0.09 205)" stroke-width="0.65"/>
+          <line x1="12" y1="200" x2="388" y2="200" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <!-- longitude lines -->
+          <ellipse cx="200" cy="200" rx="37" ry="188" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <ellipse cx="200" cy="200" rx="93" ry="188" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <ellipse cx="200" cy="200" rx="140" ry="188" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <line x1="200" y1="12" x2="200" y2="388" stroke="oklch(42% 0.09 205)" stroke-width="0.75"/>
+          <!-- diagonal meridians -->
+          <ellipse cx="200" cy="200" rx="37" ry="188" stroke="oklch(42% 0.09 205)" stroke-width="0.55" transform="rotate(45 200 200)"/>
+          <ellipse cx="200" cy="200" rx="37" ry="188" stroke="oklch(42% 0.09 205)" stroke-width="0.55" transform="rotate(-45 200 200)"/>
+          <!-- cardinal tick marks in terracotta -->
+          <line x1="200" y1="12" x2="200" y2="22" stroke="oklch(56% 0.14 48)" stroke-width="2"/>
+          <line x1="200" y1="378" x2="200" y2="388" stroke="oklch(56% 0.14 48)" stroke-width="2"/>
+          <line x1="12" y1="200" x2="22" y2="200" stroke="oklch(56% 0.14 48)" stroke-width="2"/>
+          <line x1="378" y1="200" x2="388" y2="200" stroke="oklch(56% 0.14 48)" stroke-width="2"/>
+          <!-- center dot -->
+          <circle cx="200" cy="200" r="4" fill="oklch(56% 0.14 48)" opacity="0.7"/>
+          <!-- saffron accent dot upper-right -->
+          <circle cx="290" cy="118" r="3" fill="oklch(71% 0.195 75)" opacity="0.8"/>
+          <circle cx="130" cy="260" r="2.5" fill="oklch(71% 0.195 75)" opacity="0.6"/>
+          <circle cx="310" cy="270" r="2" fill="oklch(56% 0.14 48)" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─ MY THINKING ───────────────────────────────────── -->
+  <section id="thinking">
+    <div class="thinking-header fade-in">
+      <p class="section-label">My Thinking</p>
+      <h2 class="section-title">Draft Essays</h2>
+      <p class="thinking-note">Views evolving — feedback welcome.</p>
+    </div>
+    <div class="articles-grid">
+
+      <a href="articles/ea-prioritization.html" class="article-card fade-in">
+        <span class="article-num">01</span>
+        <h3 class="article-title">EA's Prioritization Framework Is Running on Stale Data</h3>
+        <span class="article-venue">EA Analysis</span>
+        <p class="article-desc">The ITN framework is producing outputs calibrated to a world that no longer exists. The 2025–26 federal collapse changed the neglectedness baseline fundamentally. Someone needs to rerun the math.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/grantmaker-bottleneck.html" class="article-card fade-in">
+        <span class="article-num">02</span>
+        <h3 class="article-title">The AI Grantmaker Bottleneck Has a Pipeline Problem and a Closing Window</h3>
+        <span class="article-venue">AI Safety</span>
+        <p class="article-desc">The binding constraint in AI safety philanthropy isn't money — it's senior grantmakers. A displaced federal cohort has a 12–18 month window before the private sector absorbs them permanently.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/mineral-floor.html" class="article-card fade-in">
+        <span class="article-num">03</span>
+        <h3 class="article-title">The Mineral Floor: Environmental Crime Governance Is a Missing Variable in Compute Forecasting</h3>
+        <span class="article-venue">AI Safety</span>
+        <p class="article-desc">Frontier AI compute scaling requires physical mineral inputs that flow through supply chains with governance fragility not priced into any current compute forecasting model.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/global-south.html" class="article-card fade-in">
+        <span class="article-num">04</span>
+        <h3 class="article-title">Global South Delegations Are Negotiating Blind, and EA Isn't Helping</h3>
+        <span class="article-venue">AI Safety</span>
+        <p class="article-desc">AI governance defaults are being set right now. Most Global South delegations lack the technical depth on the provisions that determine whether international governance has any relationship to safety at all.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/fatf-model.html" class="article-card fade-in">
+        <span class="article-num">05</span>
+        <h3 class="article-title">The FATF Model for AI Safety Governance</h3>
+        <span class="article-venue">AI Safety</span>
+        <p class="article-desc">FATF achieved near-universal AML compliance without a treaty body or formal enforcement authority. Its architecture maps directly onto AI safety governance. The window to institutionalize it is open now.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/protein-sovereignty.html" class="article-card fade-in">
+        <span class="article-num">06</span>
+        <h3 class="article-title">Protein Sovereignty Is the Energy Independence Argument for Food</h3>
+        <span class="article-venue">Alternative Proteins</span>
+        <p class="article-desc">The alternative protein argument that moves defense establishments and food ministries: fermentation infrastructure decouples protein supply from geopolitically fragile supply chains. Singapore already knows this.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+      <a href="articles/geneva.html" class="article-card fade-in">
+        <span class="article-num">07</span>
+        <h3 class="article-title">What Needs to Go Right in Geneva this July</h3>
+        <span class="article-venue">AI Safety</span>
+        <p class="article-desc">The July 2026 Global Dialogue on AI Governance is the first real test of whether the UN's new framework — the Scientific Panel and Global Dialogue — can operate at the speed the moment demands.</p>
+        <span class="article-badge">Draft in Progress</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ─ ABOUT ──────────────────────────────────────────── -->
+  <section id="about">
+    <div class="about-inner">
+      <p class="section-label fade-in">About Me</p>
+      <div class="about-grid">
+
+        <div class="about-left fade-in">
+          <p class="about-bio">I'm a senior policy strategist and grantmaker who has spent a decade building governance infrastructure for problems the world wasn't yet ready to prioritize. At the U.S. State Department, I helped build the Nature Crimes function, moved a combined $42M+ across illicit finance and environmental crime portfolios, co-authored the first UN resolution establishing an expert group on environmental crimes, and sustained 91% program retention through a 70%+ bureau budget cuts during changing administrations. </p>
+          <p class="about-bio">Before State, I served as a Policy Analyst at RAND Corporation co-authoring peer-reviewed reports and spent three years as a Research Officer at the IMF's Financial Integrity Group, serving as desk officer for 30+ countries. I hold a JD with an international law focus from American University, with clerkships at DOJ, the UN Counter-Terrorism Executive Directorate, and DHS.</p>
+          <p class="about-bio">I'm now applying federal grantmaking discipline, multilateral coalition-building, and a track record of founding new institutional functions from blank pages to AI governance and catastrophic risk philanthropy.</p>
+
+          <p class="sub-label">Core Skills</p>
+          <div class="skills-list">
+            <span class="skill-tag">Active Grantmaking</span>
+            <span class="skill-tag">Portfolio Design</span>
+            <span class="skill-tag">Multilateral Negotiation</span>
+            <span class="skill-tag">Coalition Building</span>
+            <span class="skill-tag">AML / CFT Frameworks</span>
+            <span class="skill-tag">Environmental Crime</span>
+            <span class="skill-tag">AI Governance</span>
+            <span class="skill-tag">FATF Standards</span>
+            <span class="skill-tag">M&E Framework Design</span>
+            <span class="skill-tag">International Law (JD)</span>
+            <span class="skill-tag">Grantmaking Relationships</span>
+            <span class="skill-tag">Strategic Program Design</span>
+            <span class="skill-tag">Executive Communications</span>
+            <span class="skill-tag">Program Management</span>
+            <span class="skill-tag">Policy Research</span>
+          </div>
+
+          <a href="uploads/Garg_Resume_5.27.docx" download class="resume-btn">Download Resume ↓</a>
+        </div>
+
+        <div class="about-right fade-in">
+          <div class="exp-timeline">
+
+            <div class="exp-entry">
+              <div class="exp-dot current"></div>
+              <div class="exp-content">
+                <div class="exp-org">One Earth Partners · Seattle, WA</div>
+                <div class="exp-title">Advisor (pro bono)</div>
+                <div class="exp-dates">April 2026 – Present</div>
+                <div class="exp-desc">Synthesizing technical and programmatic data from 90+ vetted former USAID projects across environmental crimes, biodiversity, and climate resilience into funding narratives to catalyze philanthropic capital deployment into LMICs.</div>
+              </div>
+            </div>
+
+            <div class="exp-entry">
+              <div class="exp-dot"></div>
+              <div class="exp-content">
+                <div class="exp-org">U.S. State Department · OES Bureau · Washington, DC</div>
+                <div class="exp-title">Foreign Affairs Officer</div>
+                <div class="exp-dates">January 2023 – January 2026</div>
+                <div class="exp-desc">Helped build State's Nature Crimes function. Secured $10M in new funding in year one. Owned a $20M grant portfolio across NGOs and multilateral partners in 30+ LMICs. Built a 17-agency interagency framework. Co-sponsored the first UN resolution on establishing an expert group on environmental crimes at UNTOC CoP. Retained 91% of grants through 70%+ bureau cuts across Administrations.</div>
+              </div>
+            </div>
+
+            <div class="exp-entry">
+              <div class="exp-dot"></div>
+              <div class="exp-content">
+                <div class="exp-org">U.S. State Department · INL Bureau · Washington, DC</div>
+                <div class="exp-title">Senior Technical Advisor</div>
+                <div class="exp-dates">April 2022 – December 2022</div>
+                <div class="exp-desc">Managed $20M+ across transnational crime and environmental crime portfolios. Drafted Notices of Funding Opportunity, led technical evaluation panels, and scoped new initiatives across LMICs.</div>
+              </div>
+            </div>
+
+            <div class="exp-entry">
+              <div class="exp-dot"></div>
+              <div class="exp-content">
+                <div class="exp-org">U.S. State Department · INL Bureau · Washington, DC</div>
+                <div class="exp-title">Transnational Crime Program Advisor</div>
+                <div class="exp-dates">February 2021 – February 2022</div>
+                <div class="exp-desc">Rehauled a $22M+ illicit finance grant portfolio in eight weeks. Directed multi-year global programs on transnational crime from RFP design through closeout.</div>
+              </div>
+            </div>
+
+            <div class="exp-entry">
+              <div class="exp-dot"></div>
+              <div class="exp-content">
+                <div class="exp-org">RAND Corporation · Santa Monica, CA</div>
+                <div class="exp-title">Policy Analyst II, Defense &amp; Political Science Division</div>
+                <div class="exp-dates">November 2019 – February 2021</div>
+                <div class="exp-desc">Conducted quantitative and qualitative research for U.S. government  clients on governance, security, and democratic resilience. Co-authored peer-reviewed publications on AI-adjacent legal frameworks — including international law for geoengineering risk, violent nonstate actor financing, and pandemic institutional resilience. </div>
+              <div class="exp-pubs">
+                <div class="pubs-label">Selected Publications</div>
+                <a href="https://www.rand.org/pubs/perspectives/PEA1133-1.html" target="_blank" rel="noopener" class="pub-link">Climate Control: International Legal Mechanisms for Managing Geopolitical Risks of Geoengineering (2021) ↗</a>
+                <a href="https://www.rand.org/pubs/research_reports/RRA687-1.html" target="_blank" rel="noopener" class="pub-link">Countering Violent Nonstate Actor Financing (2023) ↗</a>
+                <a href="https://www.rand.org/pubs/research_reports/RRA112-10.html" target="_blank" rel="noopener" class="pub-link">Ensuring Safe Elections During a Pandemic (2020) ↗</a>
+              </div>
+              </div>
+            </div>
+
+            <div class="exp-entry">
+              <div class="exp-dot"></div>
+              <div class="exp-content">
+                <div class="exp-org">International Monetary Fund · Washington, DC</div>
+                <div class="exp-title">Research Officer, Financial Integrity Group</div>
+                <div class="exp-dates">March 2016 – March 2019</div>
+                <div class="exp-desc">Desk officer for 30+ countries. Contributed to 75+ Article IV surveillance reports on money laundering and terrorist financing. Assessed FATF AML/CFT compliance. Supported capacity development missions for Cambodia, Somalia, Jordan, Iraq, and West Bank/Gaza.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="divider"></div>
+
+          <p class="sub-label" style="margin-bottom:1.3rem">Education</p>
+          <div class="edu-entry">
+            <div class="edu-school">American University, Washington College of Law</div>
+            <div class="edu-degree">Juris Doctorate · International Law focus · Dean's Fellow, War Crimes Research Office · Staff Writer, National Security Law Brief· Legal clerkships at DOJ, UN Security Council and DHS</div>
+            <div class="edu-year">December 2015 · Washington, DC</div>
+          </div>
+          <div class="edu-entry">
+            <div class="edu-school">The Ohio State University</div>
+            <div class="edu-degree">BA, International Studies · Minor, Anthropology · Dean's List · Columnist, The Lantern</div>
+            <div class="edu-year">May 2011 · Columbus, OH</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <p class="sub-label" style="margin-bottom:1rem">Awards &amp; Certifications</p>
+          <p class="award-line">Individual Meritorious Honor Award, U.S. Department of State (2024 &amp; 2025)</p>
+          <p class="award-line">Grant Officer Representative (GOR) — federal grantmaker certification, U.S. State Department</p>
+          <p class="award-line">Foreign Service Institute: Climate Diplomacy · Multilateral Diplomacy · Program Management</p>
+          <p class="award-line">AI coursework:  Blue Dot AGI Strategy </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─ CONTACT ────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label fade-in">Contact</p>
+      <h2 class="section-title fade-in">Get in Touch</h2>
+      <p class="contact-note fade-in">Open to conversations about AI governance, effective philanthropy, grantmaking strategy, and global policy. Reach me directly at <a href="/cdn-cgi/l/email-protection#99fef8ebfeb7f8f7eceaebfcfcd9fef4f8f0f5b7faf6f4"><span class="__cf_email__" data-cfemail="70171102175e111e050302151530171d11191c5e131f1d">[email&#160;protected]</span></a>.</p>
+      <form class="contact-form fade-in" id="contactForm">
+        <div class="form-field">
+          <label class="form-label" for="fname">Name</label>
+          <input type="text" id="fname" class="form-input" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="femail">Email</label>
+          <input type="email" id="femail" class="form-input" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="fmsg">Message</label>
+          <textarea id="fmsg" class="form-textarea" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+        <p class="form-success" id="formSuccess">Opening your mail client&hellip;</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─ FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <span class="footer-name">Anusree Garg &nbsp;·&nbsp; Seattle, WA</span>
+    <ul class="footer-links">
+      <li><a href="/cdn-cgi/l/email-protection#e98e889b8ec788879c9a9b8c8ca98e84888085c78a8684"><span class="__cf_email__" data-cfemail="dfb8beadb8f1beb1aaacadbaba9fb8b2beb6b3f1bcb0b2">[email&#160;protected]</span></a></li>
+      <li><a href="https://www.linkedin.com/in/anusreegarg/?skipRedirect=true" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/anusreegarg8" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const PASS = '12345';
+
+    function checkPassword(e) {
+      e.preventDefault();
+      const val = document.getElementById('gateInput').value;
+      if (val === PASS) {
+        sessionStorage.setItem('ag_unlocked', '1');
+        document.getElementById('gate').classList.add('unlocked');
+        setTimeout(function() {
+          document.getElementById('gate').style.display = 'none';
+        }, 850);
+      } else {
+        document.getElementById('gateError').textContent = 'Incorrect password.';
+        document.getElementById('gateInput').value = '';
+        document.getElementById('gateInput').focus();
+      }
+    }
+
+    // Skip gate if already unlocked in this session
+    if (sessionStorage.getItem('ag_unlocked') === '1') {
+      var gate = document.getElementById('gate');
+      gate.style.transition = 'none';
+      gate.style.display = 'none';
+    }
+
+    // Allow Enter key in password field
+    document.getElementById('gateInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        document.querySelector('.gate-form').dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // Sticky nav
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Fade-in on scroll
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Contact form via mailto
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name  = document.getElementById('fname').value;
+      var email = document.getElementById('femail').value;
+      var msg   = document.getElementById('fmsg').value;
+      var subj  = encodeURIComponent('Message from ' + name);
+      var body  = encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + msg);
+      window.location.href = 'mailto:garg.anusree@gmail.com?subject=' + subj + '&body=' + body;
+      document.getElementById('formSuccess').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
